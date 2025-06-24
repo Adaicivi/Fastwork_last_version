@@ -46,7 +46,21 @@ BUSCAR_USUARIOS_ORDENADOS_POR_AVALIACAO = """
 SELECT u.id, u.nome, u.email, u.cpf, u.telefone, p.nome AS profissao, u.status
 FROM usuario u
 JOIN profissao p ON u.profissao_id = p.id
-ORDER BY uavaliacao DESC;
+ORDER BY u.avaliacao DESC;
+"""
+
+OBTER_USUARIO_POR_EMAIL = """
+SELECT u.id, u.nome, u.email, u.senha, u.cpf, u.telefone, u.profissao_id, p.nome AS profissao, p.descricao AS profissao_descricao, u.status, u.avaliacao
+FROM usuario u
+JOIN profissao p ON u.profissao_id = p.id
+WHERE u.email = ?;
+"""
+
+OBTER_USUARIO_POR_ID = """
+SELECT u.id, u.nome, u.email, u.senha, u.cpf, u.telefone, u.profissao_id, p.nome AS profissao, p.descricao AS profissao_descricao, u.status, u.avaliacao
+FROM usuario u
+JOIN profissao p ON u.profissao_id = p.id
+WHERE u.id = ?;
 """
 
 DELETAR_USUARIO = """DELETE FROM usuario

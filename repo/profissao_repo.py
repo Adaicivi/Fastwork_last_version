@@ -8,10 +8,10 @@ def criar_tabela_profissao():
         cursor = conexao.cursor()
         cursor.execute (CRIAR_TABELA_PROFISSAO,)
 
-def inserir_profissao(nome) -> int:
+def inserir_profissao(nome, descricao) -> int:
     with obter_conexao() as conexao:
         cursor = conexao.cursor()
-        cursor.execute(INSERT_PROFISSAO, (nome,))
+        cursor.execute(INSERT_PROFISSAO, (nome, descricao))
         return cursor.lastrowid
 
 def buscar_profissao_por_id(profissao_id) -> Profissao:
@@ -20,10 +20,10 @@ def buscar_profissao_por_id(profissao_id) -> Profissao:
         cursor.execute(BUSCAR_PROFISSAO_POR_ID, (profissao_id,))
     return cursor.fetchone()
 
-def atualizar_profissao(profissao_id, nome):
+def atualizar_profissao(profissao_id, nome, descricao):
     with obter_conexao() as conexao:
         cursor = conexao.cursor()
-        cursor.execute(ATUALIZAR_PROFISSAO, (nome, profissao_id))
+        cursor.execute(ATUALIZAR_PROFISSAO, (nome, descricao, profissao_id))
     return cursor.rowcount
 
 def exibir_profissao_ordenada() -> list[Profissao]:

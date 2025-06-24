@@ -16,7 +16,7 @@ VALUES (?, ?, ?);
 
 ATUALIZAR_AVALIACAO = """
 UPDATE avaliacao
-SET usuario_id = ?, profissional_id, = ?, nota = ?
+SET usuario_id = ?, profissional_id = ?, nota = ?
 WHERE id = ?;
 """
 

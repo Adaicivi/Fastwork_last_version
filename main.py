@@ -1,10 +1,22 @@
-from repo.avaliacao_repo import criar_tabela_avaliacao
-from repo.profissao_repo import criar_tabela_profissao
-from repo.usuario_repo import criar_tabela_usuario
+from fastapi import FastAPI, Request
+from starlette.middleware.sessions import SessionMiddleware
+
+from Fastwork_last_version.util.auth import SECRET_KEY, fazer_login, fazer_logout, obter_usuario_logado
+
+app = FastAPI()
+app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 
 
-criar_tabela_usuario()
+@app.post("/login")
+async def login(request: Request, email: str, senha: str):
+    usuario = fazer_login(request, email, senha)
+    return {"message": "Login realizado com sucesso", "usuario": usuario.email}
 
-criar_tabela_profissao()
+@app.post("/logout")
+async def logout(request: Request):
+    return fazer_logout(request)
 
-criar_tabela_avaliacao()
+@app.get("/perfil")
+async def perfil(request: Request):
+    usuario = obter_usuario_logado(request)
+    return {"usuario": usuario.email}
