@@ -20,4 +20,4 @@ async def perfil(request: Request):
     usuario = obter_usuario_logado(request)
     return {"usuario": usuario.email}
 
-# 
+#
