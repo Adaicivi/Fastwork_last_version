@@ -1,11 +1,10 @@
-from fastapi import FastAPI, Request
 from starlette.middleware.sessions import SessionMiddleware
+from fastapi import FastAPI, Request
 
 from Fastwork_last_version.util.auth import SECRET_KEY, fazer_login, fazer_logout, obter_usuario_logado
 
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
-
 
 @app.post("/login")
 async def login(request: Request, email: str, senha: str):
